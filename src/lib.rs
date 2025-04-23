@@ -31,6 +31,10 @@ struct MonitorInfo {
     pub work_area: Area,
 }
 
+#[cfg(feature = "tauri")]
+use tauri;
+
+
 #[cfg(not(any(target_os = "android", target_os = "ios")))]
 #[cfg(feature = "tauri")]
 #[tauri::command]
