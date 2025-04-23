@@ -8,7 +8,7 @@ tauri = []
 
 [dependencies]
 log = "^0.4.22"
-serde = { version = "1.0.219", features = ["derive"] }
+serde = { version = "^1.0.215", features = ["derive"] }
 
 #[target.'cfg(feature = "tauri")'.dependencies]
 tauri = "^2"
