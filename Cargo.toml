@@ -7,7 +7,7 @@ edition = "2021"
 tauri = []
 
 [dependencies]
-log = "0.4.27"
+log = "^0.4.22"
 serde = { version = "1.0.219", features = ["derive"] }
 
 #[target.'cfg(feature = "tauri")'.dependencies]
