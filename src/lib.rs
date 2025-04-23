@@ -18,10 +18,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct Area {
-    left: u32,
-    top: u32,
-    right: u32,
-    bottom: u32,
+    left: i32,
+    top: i32,
+    right: i32,
+    bottom: i32,
 }
 
 #[derive(Debug, Deserialize, Serialize, PartialEq)]
@@ -61,10 +61,10 @@ pub async fn get_work_area_tauri(monitor_name: String, window: tauri::Window) ->
                         &monitor_name
                     );
                     return Result::Ok(Area {
-                        left: monitor.position().x as u32,
-                        top: monitor.position().y as u32 + 60,
-                        right: monitor.position().x as u32 + monitor.size().width as u32,
-                        bottom: monitor.position().y as u32 + monitor.size().height as u32 - 60,
+                        left: monitor.position().x as i32,
+                        top: monitor.position().y as i32 + 60,
+                        right: monitor.position().x as i32 + monitor.size().width as i32,
+                        bottom: monitor.position().y as i32 + monitor.size().height as i32 - 60,
                     });
                 }
             }
@@ -156,16 +156,16 @@ unsafe extern "system" fn enum_monitor_proc(
             monitors.push(MonitorInfo {
                 name: device_name,
                 area: Area {
-                    left: info.monitorInfo.rcMonitor.left as u32,
-                    top: info.monitorInfo.rcMonitor.top as u32,
-                    right: info.monitorInfo.rcMonitor.right as u32,
-                    bottom: info.monitorInfo.rcMonitor.bottom as u32,
+                    left: info.monitorInfo.rcMonitor.left as i32,
+                    top: info.monitorInfo.rcMonitor.top as i32,
+                    right: info.monitorInfo.rcMonitor.right as i32,
+                    bottom: info.monitorInfo.rcMonitor.bottom as i32,
                 },
                 work_area: Area {
-                    left: info.monitorInfo.rcWork.left as u32,
-                    top: info.monitorInfo.rcWork.top as u32,
-                    right: info.monitorInfo.rcWork.right as u32,
-                    bottom: info.monitorInfo.rcWork.bottom as u32,
+                    left: info.monitorInfo.rcWork.left as i32,
+                    top: info.monitorInfo.rcWork.top as i32,
+                    right: info.monitorInfo.rcWork.right as i32,
+                    bottom: info.monitorInfo.rcWork.bottom as i32,
                 },
             });
         }
@@ -237,16 +237,16 @@ fn os_monitors_info2() -> Vec<MonitorInfo> {
             monitors_info.push(MonitorInfo {
                 name,
                 area: Area {
-                    left: (geo_x * scale_factor) as u32,
-                    top: (geo_y * scale_factor) as u32,
-                    right: ((geo_x + geo_width) * scale_factor) as u32,
-                    bottom: ((geo_y + geo_height) * scale_factor) as u32,
+                    left: (geo_x * scale_factor) as i32,
+                    top: (geo_y * scale_factor) as i32,
+                    right: ((geo_x + geo_width) * scale_factor) as i32,
+                    bottom: ((geo_y + geo_height) * scale_factor) as i32,
                 },
                 work_area: Area {
-                    left: (work_x * scale_factor) as u32,
-                    top: (work_y * scale_factor) as u32,
-                    right: ((work_x + work_width) * scale_factor) as u32,
-                    bottom: ((work_y + work_height) * scale_factor) as u32,
+                    left: (work_x * scale_factor) as i32,
+                    top: (work_y * scale_factor) as i32,
+                    right: ((work_x + work_width) * scale_factor) as i32,
+                    bottom: ((work_y + work_height) * scale_factor) as i32,
                 },
             });
         }
@@ -353,16 +353,16 @@ fn os_monitors_info() -> Vec<MonitorInfo> {
         // Retrieve the scale factor (backingScaleFactor) to convert points to physical pixels
         let scale_factor = unsafe { NSScreen::backingScaleFactor(screen) } as f64;
         let area = Area {
-            left: (frame.origin.x * scale_factor) as u32,
-            top: (frame.origin.y * scale_factor) as u32,
-            right: ((frame.origin.x + frame.size.width) * scale_factor) as u32,
-            bottom: ((frame.origin.y + frame.size.height) * scale_factor) as u32,
+            left: (frame.origin.x * scale_factor) as i32,
+            top: (frame.origin.y * scale_factor) as i32,
+            right: ((frame.origin.x + frame.size.width) * scale_factor) as i32,
+            bottom: ((frame.origin.y + frame.size.height) * scale_factor) as i32,
         };
         let work_area = Area {
-            left: (visible_frame.origin.x * scale_factor) as u32,
-            top: (visible_frame.origin.y * scale_factor) as u32,
-            right: ((visible_frame.origin.x + visible_frame.size.width) * scale_factor) as u32,
-            bottom: ((visible_frame.origin.y + visible_frame.size.height) * scale_factor) as u32,
+            left: (visible_frame.origin.x * scale_factor) as i32,
+            top: (visible_frame.origin.y * scale_factor) as i32,
+            right: ((visible_frame.origin.x + visible_frame.size.width) * scale_factor) as i32,
+            bottom: ((visible_frame.origin.y + visible_frame.size.height) * scale_factor) as i32,
         };
         // macOS does not always provide a human‐friendly display name, so we use an index.
         let name = format!("Screen {}", i);
