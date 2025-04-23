@@ -32,7 +32,8 @@ struct MonitorInfo {
 }
 
 #[cfg(feature = "tauri")]
-use tauri;
+use tauri::Window;
+
 
 
 #[cfg(not(any(target_os = "android", target_os = "ios")))]
