@@ -9,7 +9,8 @@ tauri = []
 [dependencies]
 log = "0.4.27"
 serde = { version = "1.0.219", features = ["derive"] }
-#[target.'cfg(feature = "tauri")'.dependencies]
+
+[target.'cfg(feature = "tauri")'.dependencies]
 tauri = "^2"
 
 [target.'cfg(target_os = "linux")'.dependencies]

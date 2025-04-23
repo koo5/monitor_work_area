@@ -36,7 +36,7 @@ use tauri;
 
 
 #[cfg(not(any(target_os = "android", target_os = "ios")))]
-//#[cfg(feature = "tauri")]
+#[cfg(feature = "tauri")]
 pub async fn get_work_area_tauri(monitor_name: String, window: tauri::Window) -> Result<Area, String> {
     info!("Getting work area for monitor: {}", &monitor_name);
 
